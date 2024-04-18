@@ -1,0 +1,75 @@
+/* Add your styling here, example: */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+button {
+    margin-right: 10px;
+    padding: 2px 2px;
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+    background-color: #00000000;
+    color: #ffffff6f;
+    border-color: #ffffff6f;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 5px; /* Adjust value as needed */
+}
+button:hover{cursor: pointer;}
+
+h1 {
+    font-family: 'Arial', sans-serif;
+    font-style: italic;
+    font-size: 50px;
+    color: rgb(219, 106, 185);
+}
+
+#landing-container {
+    text-align: center;
+}
+
+footer {
+    display: flex;
+    bottom: 0;
+    width: 100%;
+    padding: 1em;
+    color: #ffffff6f;
+    position: fixed;
+    text-align: center;
+
+}
+
+p{
+    text-align: center;
+    flex:auto;
+}
+
+a{
+    color: #ffffff6f; 
+}
+a:visited { text-decoration: none; color: #ffffff6f; }
+a:hover { text-decoration: none; color: #ffffff6f; }
+a:focus { text-decoration: none; color: #ffffff6f; }
+a:hover, a:active { text-decoration: none; color: #ffffff6f; cursor: pointer; }
+
+#roomsTable {
+    width: 100%;
+    border-collapse: collapse;
+    color: #ffffff6f;
+
+}
+#roomsTable th, #roomsTable td {
+    border: 0px solid black;
+    padding: 8px;
+    text-align: left;
+    color: #ffffff6f;
+}
+#roomsTable th {
+    background-color: #333;
+}

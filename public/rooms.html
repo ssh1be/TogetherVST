@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>together</title>
+    <link rel="stylesheet" href="landingstyle.css">
+</head>
+<body>
+    <div id="landing-container">
+        <h1><span id="user-greeting">Hello, User!</span></h1> <!-- User's name will be displayed here -->
+        <button id="signOutButton">Sign Out</button>
+        <p>
+            <input type="text" id="roomNameInput" placeholder="Enter room name">
+            <button id="createRoomButton">Create Room</button>
+            
+        </p>
+        <p>
+            <input type="text" id="roomIdInput" placeholder="Enter room ID">
+            <button id="joinRoomButton">Join Room</button>
+        </p>
+    </div>
+    <div>
+        <h1>my rooms</h1>
+        <table id="roomsTable">
+            <thead>
+                <tr>
+                    <th>Room Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rooms will be listed here -->
+            </tbody>
+        </table>
+    </div>
+    <footer>
+        <p>&copy; 2023 Created with &hearts; by <a href="https://www.instagram.com/ssh1be" target="_blank">@ssh1be</a></p>
+    </footer>
+    <script type="module" src="rooms.js"></script>
+    <!-- <script>document.addEventListener('DOMContentLoaded', updateRoomList);</script> -->
+    <style>
+       
+    </style>
+</body>
+</html>

@@ -1,0 +1,464 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #333;
+    color: #ffffff6f;
+    padding: 20px;
+}
+
+
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 10000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+/* Modal Content/Box */
+.modal-content {
+background-color: #fefefe3b;
+margin: 15% auto; /* 15% from the top and centered */
+padding: 20px;
+border: 1px solid #888;
+width: 30%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+color: #aaa;
+float: right;
+font-size: 28px;
+font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+color: black;
+text-decoration: none;
+cursor: pointer;
+}
+
+.other-user-cursor {
+    width: 1.5%; /* Full width */
+    height: 3%; /* Full height */
+    position: absolute;
+    pointer-events: none; /* Ensure the cursor doesn't interfere with other click events */
+    z-index: 10000; /* Adjust z-index as needed to ensure visibility */
+    border-radius: 50%; /* makes the image circular */
+    opacity: 0.5;
+    object-position: -100px 25px;
+}
+
+#trailCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none; /* This ensures clicks pass through the canvas */
+    z-index: 10000; /* Adjust z-index to be above other elements but below cursors */
+    opacity: 0.5;
+}
+
+.profile-picture {
+    width: 50px; /* adjust size as needed */
+    height: 50px; /* adjust size as needed */
+    border-radius: 50%; /* makes the image circular */
+    border: 2px solid #ffffff6f; /* optional: adds a border around the image */
+    margin-right: 10px; /* optional: adds spacing between images */
+}
+
+.playlist-controls {
+    margin-bottom: 20px;
+}
+
+button {
+    margin-right: 10px;
+    padding: 2px 2px;
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+    background-color: #00000000;
+    border-color: #ffffff6f;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 5px; /* Adjust value as needed */
+    color: #ffffff6f;
+
+}
+button:hover{cursor: pointer;}
+
+.color-picker{
+    margin-right: 0px;
+    width: 12px;
+    height: 12px;
+    transform: translate(-120px, 20px);
+    border-radius: 1px; /* Adjust value as needed */
+    -webkit-appearance: none; /* Chrome, Safari, Opera */
+    -moz-appearance: none;    /* Firefox */
+    appearance: none;         /* Standard syntax */
+}
+.track {
+    border: 1px solid #555;
+    
+    padding: 1px;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1001;
+}
+
+.track-header {
+    color: #ffffff6f;
+    font-size: 10px; /* Adjust font size to make sure it fits */
+    justify-content: space-between;
+    transform: translateY(-23px);
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+.track-name {
+    width: 100px;  /* or whatever width you find suitable */
+    display: inline-block;  /* this is important to make width effective for inline elements like <span> */
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: middle;
+    transform: translateY(-1px);
+}
+
+.track-name:focus {
+    background-color: transparent; /* or any color you prefer */
+    outline: none; /* remove browser default outline */
+    /* add any other desired focus styles */
+}
+
+.audio-controls {
+    display: flex;
+    align-items: center;
+    height: 90px;  /* Fixed height for all audio clip representations */
+}
+
+.color-picker option:hover, .color-picker option:focus, .color-picker option:active {
+    background-color: inherit; /* inherit the background color from the base state */
+    color: #000; /* Make sure text is visible */
+}
+
+.color-picker option {
+    width: 20px;
+    height: 20px;
+    display: block;
+    margin: 2px 0;
+    /* This ensures the text color is visible against any background color */
+    color: #000;
+}
+
+
+.audio {
+    position: absolute;
+    background: #555;
+    /*border-radius: 5px;*/
+    cursor: pointer;
+    margin-right: 5px;
+}
+.audio-label {
+    background: rgba(102, 102, 102, 0.7); /* Translucent background */
+    color: #fff;
+    padding: 2px 5px;  /*Reduce padding to fit within boundary */
+    font-size: 11px; /* Adjust font size to make sure it fits */
+    white-space: nowrap; /* Prevents the text from wrapping to the next line */
+    overflow: hidden; /* In case the label is too long, it will be truncated */
+    text-overflow: ellipsis; /* Adds an ellipsis when the label is truncated */
+    cursor: move;
+    position: absolute; /* This ensures that the label doesn't affect the positioning of other elements */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10; /* This ensures that the label is always on top of the waveform */
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+.audio-overlay {
+    position: absolute;
+    top: 0; /* Aligns overlay to the top of the audioDiv */
+    left: 0; /* Aligns overlay to the left of the audioDiv */
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    z-index: 11; /* Overlay will cover everything in audioDiv */
+    background-color: #333; /* Example semi-transparent background */
+}
+
+.audio-overlay-left {
+    position: absolute;
+    top: 0; /* Aligns overlay to the top of the audioDiv */
+    left: 0; /* Aligns overlay to the left of the audioDiv */
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    z-index: 11; /* Overlay will cover everything in audioDiv */
+    background-color: #333; /* Example semi-transparent background */
+}
+
+.beat-indicator {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 0.5px;
+    z-index: 1001;
+    background-color: #555; 
+    pointer-events: none;  
+}
+
+
+.half-beat-indicator {
+    /* style it similar to beat-indicator but perhaps smaller or with a different color to differentiate */
+    width: 0.5px;
+    height: 100%;
+    background-color: #ffffff5b;
+    position: absolute;
+    top: 0;
+    z-index: 1001;
+
+}
+
+.bar-indicator {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    z-index: 1001;
+    background-color: #ddd;
+    pointer-events: none; 
+}
+
+.playBtn{
+    background: none;
+    font-size: medium;
+    height: 23px;
+    line-height: 5px;
+    padding: 0px;
+    transform: translate(0px, 1px);    
+}
+
+.stopBtn{
+    height: 23px;
+    line-height: 1.4;
+}
+
+#globalPlaybackBar {
+    position: absolute;
+    top: 0;
+    left: 28px;
+    bottom: 0; /* it will stretch vertically to cover all tracks */
+    width: 1px; /* adjust as per your preference */
+    background-color: red; /* change color if needed */
+    pointer-events: none; /* to ensure it doesn't interfere with other elements' events */
+    display: none; /* will be shown only when playback starts */
+    z-index: 1002; /* ensure it's on top of other elements */
+}
+
+.context-menu {
+    display: none;
+    position: absolute;
+    background-color: #555;
+    border: 1px solid #333;
+    z-index: 2000; /* Ensure it's on top */
+}
+
+.context-menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.context-menu li {
+    padding: 5px 10px;
+    cursor: pointer;
+    color: #fff;
+}
+
+.context-menu li:hover {
+    background-color: #777;
+}
+
+.left-resize-handle {
+    width: 2px;
+    height: 100%;
+    background: #f60000b0;  /* or a color of your choice */
+    cursor: w-resize;
+    position: absolute;
+    left: 0;  /* Changed from right to left */
+    top: 0;
+}
+
+.resize-handle {
+    width: 2px;
+    height: 100%;
+    background: #aaaaaab0;  /* or a color of your choice */
+    cursor: w-resize;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.audio.selected > :not(.audio-overlay) {
+    filter: brightness(80%);
+}
+
+.audio.selected > :not(.audio-overlay-left) {
+    filter: brightness(80%);
+}
+
+.audio.selected .audio-overlay {
+    /* Make sure overlay brightness remains unchanged */
+    filter: brightness(100%);
+}
+
+.audio.selected .audio-overlay-left {
+    /* Make sure overlay brightness remains unchanged */
+    filter: brightness(100%);
+}
+
+.mute-button {
+    margin-right: 10px;
+    background-color: green;
+    width: 6px;
+    height: 6px;
+    font-size: 0px;
+    transform: translate(40px, -75px);
+    border-radius: 3px; /* Adjust value as needed */
+    border-color: #ffffff6f;
+    -webkit-appearance: none; /* Chrome, Safari, Opera */
+    -moz-appearance: none;    /* Firefox */
+    appearance: none;         /* Standard syntax */
+}
+
+.addaudio-button{
+    width: 6px;
+    height: 6px;
+    font-size: 20px;
+    transform: translate(-136.5px, 4px);
+    text-align: center;
+    border: hidden;
+}
+
+.track[data-muted="true"] .mute-button {
+    background-color: red;
+}
+
+.track[data-muted="true"] {
+    filter: brightness(50%);
+}
+
+.loop-button {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background-color: #444;
+    border: none;
+    cursor: pointer;
+    position: absolute; /* This ensures that you can position them using the `left` and `bottom` properties */
+    z-index: 5; /* Ensures they're above the beat markers */
+    transform: translate(-1.5px, -6px);
+}
+
+.loop-button.looping {
+    background-color: #ff6600; /* Change to a different color when looping is enabled */
+}
+
+.beat-button {
+    width: .5px;
+    height: 20px;
+    border-radius: 0;
+    background-color: #444;
+    border: none;
+    cursor: pointer;
+    position: absolute; /* This ensures that you can position them using the `left` and `bottom` properties */
+    z-index: 5; /* Ensures they're above the beat markers */
+    transform: translate(0px, -113.5px);
+}
+.beat-button.active {
+    background-color: #ff6600; /* Change to a different color when looping is enabled */
+}
+
+.loop-button.active {
+    background-color: #ff6600; /* Change to a different color when looping is enabled */
+}
+
+.sequencer{
+    border: 1px solid #555;
+    padding: 1px;
+    margin-bottom: 10px;
+    height: 20px;
+    position: relative;
+}
+
+.sequencer[data-muted="true"] {
+    filter: brightness(50%);
+}
+
+.addSeqAudio-button{
+    width: 6px;
+    height: 6px;
+    font-size: 20px;
+    transform: translate(-122px, 4px);
+    text-align: center;
+    border: hidden;
+}
+
+.seqMute-button{
+    margin-right: 10px;
+    background-color: green;
+    width: 6px;
+    height: 6px;
+    font-size: 0px;
+    transform: translate(40px, -75px);
+    border-radius: 3px; /* Adjust value as needed */
+    border-color: #ffffff6f;
+    -webkit-appearance: none; /* Chrome, Safari, Opera */
+    -moz-appearance: none;    /* Firefox */
+    appearance: none;         /* Standard syntax */
+}
+
+.sequencer[data-muted="true"] .seqMute-button {
+    background-color: red;
+}
+
+.half-beat-toggle {
+    border: 1px solid #ccc;
+    background-color: white;
+    padding: 5px 10px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.bpm{
+    color: #ffffff6f;
+    background-color: #00000000;
+    border-radius: 5px;
+    border: 1px solid #ffffff6f;
+    height: 20px;
+}
+
+.bpmLabel{
+    border: hidden;
+    color: #ffffff6f;
+}
+
+.playbackTimer{
+    color: #ffffff6f;
+    background-color: #00000000;
+    border-radius: 5px;
+    border: 1px solid #ffffff6f;
+    padding-bottom: 1px;
+    padding-right: 1px;
+    padding-left: 1px;
+    text-align: center;
+}
+
+
+wave {
+    overflow: hidden !important;
+}

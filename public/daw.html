@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>together</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <img src="/emptydefault.png" id="cursor-userId" class="other-user-cursor"/>
+    <canvas id="trailCanvas"></canvas>
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <p>The room no longer exists.</p>
+          <button id="okButton">OK</button>
+        </div>
+    </div>
+    <div id="globalPlaybackBar"></div>
+    <div id="room-info">
+        <!-- Room information will be dynamically inserted here -->
+        <button id="signOutButton">Sign Out</button><button id="copyRoomIdButton">Copy Room ID</button>
+        <div id="room-id">Room ID:         </div>
+        <div id="room-participants"></div>
+    </div>
+
+    <div class="playlist-controls">
+        <button id="addTrackBtn">Add Track</button>
+        <!-- <button id="addSequencer">Add Seq</button> -->
+        <button id="playBtn" class="playBtn">⏵</button>
+        <button id="stopBtn" class="stopBtn">⏹</button>
+        <label class="bpmLabel" for="bpm">bpm:</label>
+        <input class="bpm"type="number" id="bpm" value="120">  <!-- Default BPM set to 120 -->
+        <button id="half-beat-toggle">½ Beats</button>
+        <span id="playbackTimer" class="playbackTimer">00:00:00</span>
+    </div>
+
+    <div id="contextMenu" class="context-menu">
+        <ul>
+            <li style = "display:inline;"><input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1"></li>
+            <li id="deleteClip">Delete</li>
+        </ul>
+    </div>
+
+    <div id="tracks">
+        <div id="selectionRectangle" style="border: 1px dashed rgba(207, 207, 207, 0.58); position: absolute; display: none;"></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/4.6.0/wavesurfer.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/4.6.0/plugin/wavesurfer.regions.min.js"></script>
+    <script type="module" src="main.js"></script>
+    <script type="module" src="daw.js"></script>
+</body>
+
+</html>
